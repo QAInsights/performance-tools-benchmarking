@@ -1,0 +1,4 @@
+locust==2.8.6
+black
+mypy
+pylint
