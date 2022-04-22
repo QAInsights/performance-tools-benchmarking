@@ -1,7 +1,14 @@
 import { sleep } from "k6"
 import http from "k6/http"
 
-// init 
+// init
+let stages = []
+const Amount = 20
+for (let i = 1; i <= Amount; i++) {
+  stages.push({ duration: '1s', target: 50*i })
+  stages.push({ duration: '30s', target: 50*i })
+}
+stages.push({ duration: '30s', target: 50*Amount })
 export let options = {
     vus: 10,
     // duration: '60s',
@@ -9,16 +16,17 @@ export let options = {
         contacts: {
           executor: 'ramping-vus',
           startVUs: 0,
-          stages: [
-            { duration: '1s', target: 50 },
-            { duration: '10s', target: 50 },
-            { duration: '1s', target: 100 },
-            { duration: '10s', target: 100 },
-            { duration: '1s', target: 150 },
-            { duration: '10s', target: 150 },
-            { duration: '1s', target: 200 },
-            { duration: '10s', target: 200 },
-          ],
+          stages : stages,
+          // stages: [
+          //   { duration: '1s', target: 50 },
+          //   { duration: '30s', target: 50 },
+          //   { duration: '1s', target: 100 },
+          //   { duration: '30s', target: 100 },
+          //   { duration: '1s', target: 150 },
+          //   { duration: '30s', target: 150 },
+          //   { duration: '1s', target: 200 },
+          //   { duration: '30s', target: 200 },
+          // ],
           gracefulRampDown: '0s',
         },
       },
