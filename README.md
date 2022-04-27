@@ -1,10 +1,13 @@
 # performance-tools-benchmarking
 
-## Table of Contents
-1. [JMeter](./jmeter/README.md)
-2. [K6](./k6/README.md)
-3. [Locust](./locust/README.md)
+## Experiments ot run
 
+|   #	| mode          	| howto 	                            |
+| :---  |    :----:         |    ---:                               |
+| 1 	| JMeter        	| [link](./jmeter/README.md)  	        |
+| 2 	| K6            	| [link](./k6/README.md)  	            |
+| 3 	| Locust-single 	| [link](./locust/README-SINGLE.md)  	|
+| 4 	| Locust-dist   	| [link](./locust/README-DIST.md)  	    |
 
 ## Test scenario
 1. Each user sends a get request to [petclinic](https://petclinic.ycrash.io) api every 1 second.
