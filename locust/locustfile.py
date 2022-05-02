@@ -36,7 +36,7 @@ class StagesShape(LoadTestShape):
     total_steps = 20
     rate = 50
     stages = [
-        {"duration": 30 * i, "users": 50 * i, "spawn_rate": 50}
+        {"duration": 30 * i, "users": 50 * i, "spawn_rate": 50*i}
         for i in range(1, total_steps + 1)
     ]
     stages.append(
