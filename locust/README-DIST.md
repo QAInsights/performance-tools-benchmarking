@@ -20,10 +20,10 @@
 
 ## Run the test
 1. `mkdir [project_path]/locust/results`
-2. Run one master process - `locust -f [project_path]/locust/locustfile.py  --headless --csv=[project_path]/locust/results/test --master`
+2. Run one master process - `locust -f [project_path]/locust/locustfile.py  --headless --users 1000 --run-time 15m --spawn-rate 16 --csv=[project_path]/locust/results/test --master`
 3. Run 2 worker processes:
-    1.`locust -f [project_path]/locust/locustfile.py  --headless --csv=[project_path]/locust/results/test --worker --master-host=localhost`
-    2.`locust -f [project_path]/locust/locustfile.py  --headless --csv=[project_path]/locust/results/test --worker --master-host=localhost` 
+    1.`locust -f [project_path]/locust/locustfile.py  --headless --worker --master-host=localhost`
+    2.`locust -f [project_path]/locust/locustfile.py  --headless --worker --master-host=localhost` 
 
 ## Outputs
 1. `[project_path]/locust/results/test_exceptions.csv`
