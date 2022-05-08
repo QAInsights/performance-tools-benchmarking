@@ -79,13 +79,7 @@ We used AWS cloud-watch to gather performance insights from the EC2 Instance
 Our Software Under Test (SUT) is a demo 'pet-clinic' website developed by ycrash, we are using it's root path as our targeted API.
 ### Performance test scenario
 
-Our performance test scenario is a "stepping load pattern", starting from 50 virtual users, and then adds 50 more every 30 seconds until it reaches 1000 virtual users, and then holds this load for 60 seconds.
-
-![Fig1](images/stepping-pattern.png)
->>>>>>        fig 1 - stepping pattern
-
-
-Every virtual user sends a get request to SUT every 1 second.
+Our performance test scenario is very simple, we spin up 1000 virtual users in a ramp-up period of 60 seconds, then each of the virtual users sends an http request every 1-5 seconds in a uniform distribution.
 
 ## Measurements:
 1. CPU usage.
