@@ -84,7 +84,8 @@ Load was kept for 1 hour
 
 ## Measurements:
 1. CPU usage - collected from AWSs cloud-watch
-2. Request rate - collected individually from the tools reporter
+2. Memory usage - collected from AWSs cloud-watch
+3. Request rate - collected individually from the tools reporter
 4. Network bytes sent - collected from AWSs cloud-watch
 
 ## Results
@@ -107,29 +108,47 @@ Load was kept for 1 hour
 ![](images/K6_2-CPU.png)
 >>>>>> image 4 - K6 CPU consumption
 
-
-As we can see, JMeter held at ~ 15-20% of cpu utilization.
-Locust with single executor held at 35%, locust with 2 workers held at 45% and K6 held at 40%.
-So JMeter appears to be advantageous in CPU consumption.
-
-
-### 2. Request rate
+### 2. Memory Consumption
 
 #### 2.1 JMeter:
-![](images/JMETER-RequestRate.png)
->>>>>> image 5 - JMeter Request rate
+![](images/JMETER-MEM.png)
+>>>>>> image 5 - JMeter memory consumption
 
 #### 2.2 Locust single executor:
-![](images/LocustSingle-RequestRate.png)
->>>>>> image 6 - Locust single Request rate
+![](images/LocustSingle-MEM.png)
+>>>>>> image 6 - Locust single memory consumption
 
 #### 2.3 Locust with 2 workers:
-![](images/LocustDist-RequestRate.png)
->>>>>> image 7 - Locust distributed Request rate
+![](images/LocustDIST-MEM.png)
+>>>>>> image 7 - Locust single memory consumption
 
 #### 2.4 K6:
+![](images/K6-MEM.png)
+>>>>>> image 8 - K6 memory consumption
+
+JMeter went up to 20% of memory usage, Locust single mode consumed 4.8% of memory while Locust with 2 executors consumed 5.7%.
+K6 Memory usage progressed gradually from 13% to 18%
+
+It seems like in all instances memory usage was not an issue, with JMeter performing worst, K6 performing slightly better, and Locust being most efficient in memory use.
+
+
+### 3. Request rate
+
+#### 3.1 JMeter:
+![](images/JMETER-RequestRate.png)
+>>>>>> image 9 - JMeter Request rate
+
+#### 3.2 Locust single executor:
+![](images/LocustSingle-RequestRate.png)
+>>>>>> image 10 - Locust single Request rate
+
+#### 3.3 Locust with 2 workers:
+![](images/LocustDist-RequestRate.png)
+>>>>>> image 11 - Locust distributed Request rate
+
+#### 3.4 K6:
 ![](images/K6_2-Dashboard.png)
->>>>>> image 8 - K6 Request rate
+>>>>>> image 12 - K6 Request rate
 
 When looking at request rates we see that all 4 executions performed ~315 requests per second.
 
@@ -139,27 +158,27 @@ So despite the fact that the CPU load was down by a half in JMeter, JMeter was o
 
 When looking at the errors in JMeters dashboard we can see the error types:
 ![](images/JMeter-Dashboard.png)
->>>>>> image 9 - JMeter dashboard
+>>>>>> image 13 - JMeter dashboard
 
 ```Non HTTP response code: org.apache.http.NoHttpResponseException/Non HTTP response message: petclinic.ycrash.io:443 failed to respond```
 
-### 3. Network - bytes sent
+### 4. Network - bytes sent
 
-#### 3.1 JMeter:
+#### 4.1 JMeter:
 ![](images/JMETER-nw-out.png)
->>>>>> image 10 - JMeter bytes out
+>>>>>> image 14 - JMeter bytes out
 
-#### 3.2 Locust single executor:
+#### 4.2 Locust single executor:
 ![](images/LocustSingle-nw-out.png)
->>>>>> image 11 - Locust single bytes out
+>>>>>> image 15 - Locust single bytes out
 
-#### 3.3 Locust with 2 workers:
+#### 4.3 Locust with 2 workers:
 ![](images/LocustDist-nw-out.png)
->>>>>> image 12 - Locust distributed bytes out
+>>>>>> image 16 - Locust distributed bytes out
 
-#### 3.4 K6:
+#### 4.4 K6:
 ![](images/K6-nw-out.png)
->>>>>> image 13 - K6 bytes out
+>>>>>> image 17 - K6 bytes out
 
 Locust did not show any difference in network traffic when executed in parallel mode vs single process, in both cases, traffic went up to 25M bytes per minute
 Expectation was that adding additional worker will improve performance but it did not seem to be the case in this experiment.
