@@ -20,12 +20,7 @@
 
 ## Run the test
 1. `mkdir [project_path]/locust/results`
-2. `locust -f [project_path]/locust/locustfile.py  --headless --users 1000 --run-time 15m --spawn-rate 16 --csv=[project_path]/locust/results/test`
+2. `locust -f [project_path]/locust/locustfile.py  --headless --users 1000 --run-time 15m --spawn-rate 16 --html=[project_path]/locust/results/test.html`
 
 ## Outputs
-1. `[project_path]/locust/results/test_exceptions.csv`
-2. `[project_path]/locust/results/test_failures.csv`
-3. `[project_path]/locust/results/test_stats.csv`
-4. `[project_path]/locust/results/test_stats_history.csv`
-
-NOTE! - locust has an active bug under investigation [here](https://github.com/locustio/locust/issues/2075)
+- `[project_path]/locust/results/test.html `

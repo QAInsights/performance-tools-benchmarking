@@ -12,23 +12,20 @@
 7. `sudo apt install python3.10-venv`
 
 ### Setup virtual environment
-1. `python -m venv [project_path]/venv`
-2. `[project_path]/bin/activate`
+8. `python -m venv [project_path]/venv`
+9. `[project_path]/bin/activate`
 
 ### Install python dependencies
-1. `pip install locust==2.8.6`
+10. `pip install locust==2.8.6`
 
 ## Run the test
-1. `mkdir [project_path]/locust/results`
-2. Run one master process - `locust -f [project_path]/locust/locustfile.py  --headless --users 1000 --run-time 15m --spawn-rate 16 --csv=[project_path]/locust/results/test --master`
-3. Run 2 worker processes:
+11. `mkdir [project_path]/locust/results`
+12. Run one master process - `locust -f [project_path]/locust/locustfile.py  --headless --users 1000 --run-time 15m --spawn-rate 16 --html=[project_path]/locust/results/test.html --master`
+13. Run 2 worker processes:
+
     1.`locust -f [project_path]/locust/locustfile.py  --headless --worker --master-host=localhost`
+
     2.`locust -f [project_path]/locust/locustfile.py  --headless --worker --master-host=localhost` 
 
 ## Outputs
-1. `[project_path]/locust/results/test_exceptions.csv`
-2. `[project_path]/locust/results/test_failures.csv`
-3. `[project_path]/locust/results/test_stats.csv`
-4. `[project_path]/locust/results/test_stats_history.csv`
-
-NOTE! - locust has an active bug under investigation [here](https://github.com/locustio/locust/issues/2075)
+- `[project_path]/locust/results/test.html `
