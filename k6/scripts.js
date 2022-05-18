@@ -29,3 +29,4 @@ export default function () {
   let res = http.get("https://petclinic.ycrash.io/")
   console.log(res.status)
   sleep(randomIntBetween(1, 5))
+}

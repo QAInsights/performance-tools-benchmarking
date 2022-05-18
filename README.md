@@ -2,7 +2,7 @@
 
 ## Experiments ot run
 
-|   #	| mode          	| howto 	                            |
+|   #	| mode          	| how-to 	                            |
 | :---  |    :----:         |    ---:                               |
 | 1 	| JMeter- Default  	| [link](./jmeter/README-DEFAULT.md)    |
 | 1 	| JMeter-4GB       	| [link](./jmeter/README-4GB.md)  	    |
