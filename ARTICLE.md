@@ -3,12 +3,13 @@
 ## Abstract
 
 With more load testing tools coming up to the market, performance engineers are in a need to make a better informed decision as to the tool that best suites their needs.
-One area of concern, is the tools computational resource consumption such as cpu, memory or I\O.
+One area of concern, is the tools computational resource consumption such as cpu and memory and how it effects the tools performance and ability to generate high loads efficiently.
 When the use of resources is excessive and the load testing tool is not performant, this can lead to unreliable results or high performance testing costs.
 
-In our experiment, we've created a  load testing script of equal load model using 3 popular open-source load testing tools 1.JMeter; 2.K6; 3.Locust.
+In our experiment, we've created a load testing script of equal load model using 3 popular open-source load testing tools 1.JMeter; 2.K6; 3.Locust.
 We've ran these scripts on a sterile environment and collected performance metrics from the load generator.
 
+Overall, we saw that JMeter has sever difficulties to generate high load, while locust and K6 performed better, with a slight advantage to K6.
 
 <br>
 
@@ -43,27 +44,28 @@ Scripting is done in python and locust provide an easy interface to write perfor
 Locust supports distributed execution using a manager-worker architecture, but unlike JMeter, Locust also allows inter communication between the nodes which improves the ability to synchronize between the nodes and sharing data at run time.
 
 
-Owing to pythons __Global Interpreter Lock__ (GIL), locust can only use a single CPU core at the time.
+Owing to pythons __Global Interpreter Lock__ (GIL), locust can only use a single CPU core at a time.
 To take advantage of multiple cores, it is recommended to instantiate multiple workers on a single machine.
 
 Locust supports various protocols like HTTP, MQTT, JMS, SMTP and many others, and it can be extended with plugins.
 
-To the best of our knowledge there aren't many (or any) PaaS applications supporting locust for in cloud execution, which means that the implementation of cloud execution needs to be implemented by the developers.
+To the best of our knowledge there aren't many (or any) PaaS applications supporting locust for in-cloud execution, which means that the platform for cloud execution needs to be implemented (and maintained) by developers.
 
 <br>
 
 ### K6
 
 K6 has recently been acquired by Grafana-labs and its being strongly maintained.
-Written in Golang, it takes advantage of Golan's powerful concurrency abilities.
+Written in Golang, it takes advantage of Golan's powerful concurrency capabilities.
 
 Scripting in K6 however is done with Javascript which is an interesting decision.
 K6 creators believe that most programmers are more comfortable writing in Javascript, such that it would allow the tool to have the best of both worlds:
 Golangs performance with Javascripts readability.
+The intention here is to shift performance testing to the left, to allow software developers to write and execute the tests by themselves.
 
-Unlike JMeter and Locust, K6 does not support distributed execution, for that purpose you need to use the commercial version that allows in cloud distributed execution.
+Unlike JMeter and Locust, K6 does not support distributed execution, for that purpose you'd need to use the commercial version that allows in-cloud distributed execution.
 
-A key advantage for K6 is the ease of integration with visualization tools, namely Grafana, DataDog or CloudWatch, as well as integration with IDE such as visual studio code or intelij.
+A key advantage of K6 is the ease of integration with visualization tools, namely Grafana, DataDog or CloudWatch, as well as integration with IDE such as visual studio code or intelij.
 
 K6 supports various protocols like HTTP, MQTT, JMS, SMTP and many others, and it can be extended with plugins.
 
@@ -83,20 +85,18 @@ K6 supports various protocols like HTTP, MQTT, JMS, SMTP and many others, and it
 
 ## Experimental material
 
-### Setup
+### Test Setup
 
-To evaluate performance of the 3 tools, we first set up a testing environment using a m4-large EC2 instance on AWS, it has 2 CPU cores and 8GB of memory.
+To evaluate performance of the 3 tools, we first set up a testing environment using a m4-large EC2 instance on AWS, it has 2 vCPU cores and 8GB of memory.
 We installed all required pre-requisites.
 We used AWS cloud-watch to gather performance insights from the EC2 Instance
-
-Our Software Under Test (SUT) is a demo 'pet-clinic' website developed by ycrash, we are using it's root path as our targeted API.
 
 In total we executed 5 experiments as described in table 2:
 
 <br>
 
 
-|   #	| mode          	| details |howto 	                            |
+|   #	| mode          	| details |how-to 	                            |
 | :---  |    :----:         |---: |   ---:                               |
 | 1 	| JMeter-Default  	| Execute load with JMeter, using the default 1GB heap size |[link](./jmeter/README-DEFAULT.md)    |
 | 1 	| JMeter-4GB       	| Execute load with JMeter, using the a 4GB heap size |[link](./jmeter/README-4GB.md)  	    |
@@ -106,10 +106,16 @@ In total we executed 5 experiments as described in table 2:
 
 >>>>>> table 2 - experiments.
 
-### Performance test scenario
+### Software Under Test
+
+Our Software Under Test (SUT) is a demo 'pet clinic' website developed by ycrash, we are using it's root path as our targeted API.
+It runs on EC2 Instance t3a.medium with 2 vCPUs, 4 GB of memory and a standalone load balancer.
+
+
+### Performance Test Scenario
 
 Our performance test scenario is very simple, we spin up 1000 virtual users in a ramp-up period of 60 seconds, then each of the virtual users sends an http request every 1-5 seconds in a uniform distribution.
-Load was kept for 1 hour
+Load was kept for 1 hour.
 
 ## Measurements:
 1. CPU usage - collected from AWSs cloud-watch
@@ -260,5 +266,16 @@ While JMeter failed to generate load from 1000 virtual users from a single m4 in
 Further more, our experiment shows a slight advantage to K6 over Locust when it comes to network traffic, which is expected due to golangs concurrency support.
 
 While our experiment shows that JMeter requires more computational resources, further experiments need to be done to evaluate the extent to which JMeter is more costly and what might be the implications of that on performance assurance efforts.
+
+## Acknowledgement
+
+We would like to thank our friends at **yCrash** for allowing us to use their pet clinic website as a demo application.
+
+yCrash is a state-of-the-art troubleshooting and root cause analysis tool for JAVA application, using cutting edge log file analysis, captures 360-degree artifacts from your technology stack such as Garbage collection logs, thread dumps, heap dumps, netstat, vmstat, kernel logs... analyzes them and instantly identifies the root cause of the problem.
+
 ## External links
-... TBD
+
+1. [JMeter](https://jmeter.apache.org/)
+2. [Locust](https://locust.io/)
+3. [K6](https://k6.io/)
+4. [yCrash](https://ycrash.io/)
