@@ -11,5 +11,5 @@
 | 4 	| Locust-dist   	| [link](./locust/README-DIST.md)  	    |
 
 ## Article:
-[Read the article here](./ARTICLE.md)  
+[Read the article here](https://qainsights.com/performance-tools-benchmarking/)  
 
